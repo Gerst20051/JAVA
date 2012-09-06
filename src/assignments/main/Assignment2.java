@@ -24,6 +24,12 @@ public class Assignment2 {
 		strlen = 0;
 	}
 	
+	static boolean isDigit(char token) {
+		int digit = Integer.parseInt(Character.toString(token));
+		if (0 <= digit && 9 >= digit) return true;
+		else return false;
+	}
+	
 	static void setStrlen(int length) {
 		strlen = length;
 	}
@@ -61,24 +67,20 @@ public class Assignment2 {
 		char ctoken = getToken(index);
 		if (ctoken == space) {
 			isspace = true;
-		} else if (Character.isLetter(ctoken)) {
-			isword = true;
-		} else if (Character.isDigit(ctoken)) {
-			isnumber = true;
 		} else if (ctoken == '-' || ctoken == '+') {
 			issign = true;
 		} else if (ctoken == '"') {
 			isquote = true;
+		} else if (Character.isLetter(ctoken)) {
+			isword = true;
+		} else if (isDigit(ctoken)) {
+			isnumber = true;
 		}
 	}
 	
 	static void checkType() {
 		char token = getToken(getIndex());
-		if (Character.isLetter(token)) {
-			inword = true;
-		} else if (Character.isDigit(token)) {
-			innumber = true;
-		} else if (token == '"') {
+		if (token == '"') {
 			inquote = !inquote;
 		}
 	}
@@ -101,28 +103,36 @@ public class Assignment2 {
 		++index;
 	}
 	
+	static void printToken() {
+		if (isquote) {
+			System.out.println("isquote: "+token);
+		} else if (isword) {
+			System.out.println("isword: "+token);
+		} else if (isnumber) {
+			System.out.println("isnumber: "+token);
+		} else if (issign) {
+			System.out.println("issign: "+token);
+		}
+	}
+	
 	static void processString(String data) {
 		while (hasNext()) {
 			checkType();
 			checkToken(getIndex());
-			if (inquote || isquote) {
-				System.out.println("inquote");
-			} else {
+			if (!inquote && !isquote) {
 				if (isspace && 1 < getIndex()) {
 					token = input.substring(getPrevIndex(),getIndex());
-					System.out.println(token);
+					checkPrevToken();
+					printToken();
 					setPrevIndex(getIndex()+1);
-				} else if (isword) {
-					System.out.println("isword");
-				} else if (isnumber) {
-					System.out.println("isnumber");
-				} else if (issign) {
-					System.out.println("issign");
+				} else {
+					
 				}
 			}
 			if (getIndex() == getStrlen()-1) {
 				token = input.substring(getPrevIndex(),getIndex()+1);
-				System.out.println(token);
+				checkPrevToken();
+				printToken();
 			}
 			nextToken();
 		}
