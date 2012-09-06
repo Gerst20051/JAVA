@@ -5,10 +5,11 @@ import console.Console;
 public class Assignment2 {
 	static String input;
 	static boolean isspace = false;
-	static boolean isword = false;
-	static boolean isnumber = false;
 	static boolean issign = false;
 	static boolean isquote = false;
+	static boolean isword = false;
+	static boolean isnumber = false;
+	static boolean isillegal = false;
 	static boolean inword = false;
 	static boolean innumber = false;
 	static boolean inquote = false;
@@ -19,13 +20,22 @@ public class Assignment2 {
 	static int strlen = 0;
 	
 	static void resetVars() {
+		isspace = false;
+		issign = false;
+		isquote = false;
+		isword = false;
+		isnumber = false;
+		isillegal = false;
+		inword = false;
+		innumber = false;
+		inquote = false;
 		pindex = 0;
 		index = 0;
 		strlen = 0;
 	}
 	
 	static boolean isDigit(char token) {
-		int digit = Integer.parseInt(Character.toString(token));
+		int digit = Character.getNumericValue(token);
 		if (0 <= digit && 9 >= digit) return true;
 		else return false;
 	}
@@ -60,14 +70,16 @@ public class Assignment2 {
 	
 	static void checkToken(int index) {
 		isspace = false;
-		isword = false;
-		isnumber = false;
 		issign = false;
 		isquote = false;
+		isword = false;
+		isnumber = false;
+		isillegal = false;
 		char ctoken = getToken(index);
 		if (ctoken == space) {
 			isspace = true;
 		} else if (ctoken == '-' || ctoken == '+') {
+			System.out.println("SIGN"+ctoken);
 			issign = true;
 		} else if (ctoken == '"') {
 			isquote = true;
@@ -75,6 +87,9 @@ public class Assignment2 {
 			isword = true;
 		} else if (isDigit(ctoken)) {
 			isnumber = true;
+		} else {
+			System.out.println("ILLEGAL"+ctoken);
+			isillegal = true;
 		}
 	}
 	
@@ -104,14 +119,16 @@ public class Assignment2 {
 	}
 	
 	static void printToken() {
-		if (isquote) {
+		if (issign) {
+			System.out.println("issign: "+token);
+		} else if (isquote) {
 			System.out.println("isquote: "+token);
 		} else if (isword) {
 			System.out.println("isword: "+token);
 		} else if (isnumber) {
 			System.out.println("isnumber: "+token);
-		} else if (issign) {
-			System.out.println("issign: "+token);
+		} else if (isillegal) {
+			System.out.println("illegal: "+token);
 		}
 	}
 	
@@ -119,19 +136,32 @@ public class Assignment2 {
 		while (hasNext()) {
 			checkType();
 			checkToken(getIndex());
-			if (!inquote && !isquote) {
-				if (isspace && 1 < getIndex()) {
+			if (!inquote && !isquote && 1 < getIndex()) {
+				if (isspace || isillegal || issign) {
+					//if (issign) System.out.println("issign!!!");
 					token = input.substring(getPrevIndex(),getIndex());
-					checkPrevToken();
+					//if (!issign) checkPrevToken();
+					if (issign || isillegal) {
+						//setPrevIndex(getIndex()+1);
+					} else {
+						checkPrevToken();
+						setPrevIndex(getIndex()+1);
+					}
 					printToken();
-					setPrevIndex(getIndex()+1);
-				} else {
-					
 				}
 			}
 			if (getIndex() == getStrlen()-1) {
-				token = input.substring(getPrevIndex(),getIndex()+1);
-				checkPrevToken();
+				if (isillegal) {
+					System.out.println("ISILLEGAL!");
+					token = input.substring(getPrevIndex(),getStrlen()-1);
+					checkPrevToken();
+				} else {
+					System.out.println("LEGAL!");
+					token = input.substring(getPrevIndex(),getStrlen());
+				}
+				if (inquote) {
+					System.out.println("error: please end quote");
+				}
 				printToken();
 			}
 			nextToken();
