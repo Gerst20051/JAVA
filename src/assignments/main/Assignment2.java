@@ -13,10 +13,32 @@ public class Assignment2 {
 	static boolean innumber = false;
 	static boolean inquote = false;
 	final static char space = ' ';
-	//static char token;
-	static int oindex = 0;
+	static String token;
+	static int pindex = 0;
 	static int index = 0;
 	static int strlen = 0;
+	
+	static void resetVars() {
+		pindex = 0;
+		index = 0;
+		strlen = 0;
+	}
+	
+	static void setStrlen(int length) {
+		strlen = length;
+	}
+	
+	static int getStrlen() {
+		return strlen;
+	}
+	
+	static void setPrevIndex(int index) {
+		pindex = index;
+	}
+	
+	static int getPrevIndex() {
+		return pindex;
+	}
 	
 	static int getIndex() {
 		return index;
@@ -71,7 +93,7 @@ public class Assignment2 {
 	}
 	
 	static boolean hasNext() {
-		if (getIndex() < strlen) return true;
+		if (getIndex() < getStrlen()) return true;
 		else return false;
 	}
 	
@@ -82,25 +104,36 @@ public class Assignment2 {
 	static void processString(String data) {
 		while (hasNext()) {
 			checkType();
-			if (inquote) {
-				
+			checkToken(getIndex());
+			if (inquote || isquote) {
+				System.out.println("inquote");
 			} else {
-				if (isword) {
-					//input.substring(oindex,index);
+				if (isspace && 1 < getIndex()) {
+					token = input.substring(getPrevIndex(),getIndex());
+					System.out.println(token);
+					setPrevIndex(getIndex()+1);
+				} else if (isword) {
+					System.out.println("isword");
 				} else if (isnumber) {
-					
+					System.out.println("isnumber");
 				} else if (issign) {
-					
+					System.out.println("issign");
 				}
+			}
+			if (getIndex() == getStrlen()-1) {
+				token = input.substring(getPrevIndex(),getIndex()+1);
+				System.out.println(token);
 			}
 			nextToken();
 		}
+		resetVars();
 	}
 	
 	public static void main(String[] args) {
+		// move Dorothy 30 40 say oz "one" say "2" "$%!@"
 		while (!(input = Console.readString()).equals(".")) {
-			strlen = input.length();
-			if (1 < strlen) processString(input);
+			setStrlen(input.length());
+			if (1 < getStrlen()) processString(input);
 		}
 	}
 }
