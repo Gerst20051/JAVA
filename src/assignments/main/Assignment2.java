@@ -79,7 +79,6 @@ public class Assignment2 {
 		if (ctoken == space) {
 			isspace = true;
 		} else if (ctoken == '-' || ctoken == '+') {
-			System.out.println("SIGN"+ctoken);
 			issign = true;
 		} else if (ctoken == '"') {
 			isquote = true;
@@ -88,7 +87,6 @@ public class Assignment2 {
 		} else if (isDigit(ctoken)) {
 			isnumber = true;
 		} else {
-			System.out.println("ILLEGAL"+ctoken);
 			isillegal = true;
 		}
 	}
@@ -138,25 +136,21 @@ public class Assignment2 {
 			checkToken(getIndex());
 			if (!inquote && !isquote && 1 < getIndex()) {
 				if (isspace || isillegal || issign) {
-					//if (issign) System.out.println("issign!!!");
-					token = input.substring(getPrevIndex(),getIndex());
-					//if (!issign) checkPrevToken();
 					if (issign || isillegal) {
-						//setPrevIndex(getIndex()+1);
+						token = input.substring(getIndex(),getIndex()+1);
 					} else {
+						token = input.substring(getPrevIndex(),getIndex());
 						checkPrevToken();
-						setPrevIndex(getIndex()+1);
 					}
+					setPrevIndex(getIndex()+1);
 					printToken();
 				}
 			}
 			if (getIndex() == getStrlen()-1) {
 				if (isillegal) {
-					System.out.println("ISILLEGAL!");
 					token = input.substring(getPrevIndex(),getStrlen()-1);
 					checkPrevToken();
 				} else {
-					System.out.println("LEGAL!");
 					token = input.substring(getPrevIndex(),getStrlen());
 				}
 				if (inquote) {
@@ -170,7 +164,7 @@ public class Assignment2 {
 	}
 	
 	public static void main(String[] args) {
-		// move Dorothy 30 40 say oz "one" say "2" "$%!@"
+		// move Dorothy +30 -40 say oz "one" say "2" "$%!@"
 		while (!(input = Console.readString()).equals(".")) {
 			setStrlen(input.length());
 			if (1 < getStrlen()) processString(input);
