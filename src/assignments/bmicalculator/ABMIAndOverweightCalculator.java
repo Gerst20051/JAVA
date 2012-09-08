@@ -35,9 +35,9 @@ public class ABMIAndOverweightCalculator {
 	
 	public double getBMI() {
 		double bmi = 0;
-		if (measureSystem == "metric") {
+		if (getMeasureSystem() == "metric") {
 			bmi = weight/(height*height);
-		} else if (measureSystem == "imperial") {
+		} else if (getMeasureSystem() == "imperial") {
 			bmi = (weight/(height*height))*703;
 		}
 		return bmi;
