@@ -15,10 +15,6 @@ public class Assignment1 {
 		int cerror = 0;
 		int index = 0;
 		int strlen = input.length();
-		if (0 == strlen) {
-			System.out.println("Illegal String Length: " + strlen + ". Terminating program.");
-			System.exit(-1);
-		}
 		System.out.println("Forwards:");
 		while (index < strlen) {
 			token = input.charAt(index);

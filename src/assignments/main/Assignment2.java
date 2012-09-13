@@ -137,6 +137,12 @@ public class Assignment2 {
 			if (!inquote && !isquote && 1 < getIndex()) {
 				if (isspace || isillegal || issign) {
 					if (issign || isillegal) {
+						if (getPrevIndex() < getIndex()) {
+							token = input.substring(getPrevIndex(),getIndex());
+							checkPrevToken();
+							printToken();
+						}
+						checkToken(getIndex());
 						token = input.substring(getIndex(),getIndex()+1);
 					} else {
 						token = input.substring(getPrevIndex(),getIndex());
@@ -147,16 +153,15 @@ public class Assignment2 {
 				}
 			}
 			if (getIndex() == getStrlen()-1) {
-				if (isillegal) {
-					token = input.substring(getPrevIndex(),getStrlen()-1);
-					checkPrevToken();
-				} else {
+				if (!issign && !isillegal) {
 					token = input.substring(getPrevIndex(),getStrlen());
+					printToken();
 				}
 				if (inquote) {
+					token = input.substring(getPrevIndex(),getStrlen());
+					printToken();
 					System.out.println("error: please end quote");
 				}
-				printToken();
 			}
 			nextToken();
 		}
