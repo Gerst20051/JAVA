@@ -1,6 +1,6 @@
 package powerpoints;
 
-import console.Console.readInt;
+import console.Console;
 
 public class string_loop {
     public static void main (String args[]) {
