@@ -170,7 +170,7 @@ public class Assignment2 {
 	
 	public static void main(String[] args) {
 		// move Dorothy +30 -40 say oz "one" say "2" "$%!@"
-		while (!(input = Console.readString()).equals(".")) {
+		while (!((input = Console.readString()).charAt(0) == '.')) {
 			setStrlen(input.length());
 			if (1 < getStrlen()) processString(input);
 		}
