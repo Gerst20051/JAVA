@@ -2,21 +2,18 @@ package a4_scanner;
 
 import a4_token.*;
 import a4_token.Number;
+import a4_commands.*;
+import a4_commands.Thread;
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 
-/*
-public void Scanner(){
-	Token[] example = new Token[some number]
-	Token[0] = new Start Bracket(input);
-	Token[1] = new Word(input);
-	Token[2] = new Number(input);
-}
-*/
-
 public class Scanner {
 	String string;
+	String token;
+	Token[] tokens = new Token[7];
+	Token[] commands = new Token[13];
+	String[] errors = new String[50];
 	boolean isspace = false;
 	boolean issign = false;
 	boolean isanchor = false;
@@ -28,17 +25,15 @@ public class Scanner {
 	boolean innumber = false;
 	boolean inquote = false;
 	final char space = ' ';
-	String token;
+	int eindex = 0;
+	int tindex = 0;
+	int cindex = 0;
 	int pindex = 0;
 	int index = 0;
 	int strlen = 0;
-	int tindex = 0;
-	
-	Token[] tokens = new Token[7];
 	
 	public Scanner() {}
 	public Scanner(String input) {
-		setString(input);
 		tokens[tindex++] = new Minus();
 		tokens[tindex++] = new Plus();
 		tokens[tindex++] = new Start();
@@ -46,6 +41,20 @@ public class Scanner {
 		tokens[tindex++] = new Quote();
 		tokens[tindex++] = new Word();
 		tokens[tindex++] = new Number();
+		commands[cindex++] = new Move();
+		commands[cindex++] = new Say();
+		commands[cindex++] = new RotateLeftArm();
+		commands[cindex++] = new RotateRightArm();
+		commands[cindex++] = new Repeat();
+		commands[cindex++] = new Define();
+		commands[cindex++] = new Call();
+		commands[cindex++] = new Thread();
+		commands[cindex++] = new Wait();
+		commands[cindex++] = new Proceedall();
+		commands[cindex++] = new Sleep();
+		commands[cindex++] = new Undo();
+		commands[cindex++] = new Redo();
+		setString(input);
 	}
 	
 	public void setString(String input) {
@@ -56,6 +65,14 @@ public class Scanner {
 	
 	public String getString() {
 		return string;
+	}
+	
+	public Token[] getTokens() {
+		return tokens;
+	}
+	
+	public Token[] getCommands() {
+		return commands;
 	}
 	
 	void resetVars() {
@@ -72,6 +89,13 @@ public class Scanner {
 		pindex = 0;
 		index = 0;
 		strlen = 0;
+	}
+	
+	int getIndex(String[] haystack, String needle) {
+		for (int i = 0; i < haystack.length; i++) {
+			if (haystack[i].equals(needle)) return i;
+		}
+		return -1;
 	}
 	
 	boolean isDigit(char token) {
@@ -171,44 +195,86 @@ public class Scanner {
 		++index;
 	}
 	
-	void printToken() {
+	void storeToken() {
 		if (issign) {
 			if (getCToken() == '-') {
-				minus.setToken(getToken());
-				//System.out.println("<Token Minus>");
-				//System.out.println(minus.getMinus());
+				tokens[0].setToken(getToken());
 			} else {
-				plus.setToken(getToken());
-				//System.out.println("<Token Plus>");
-				//System.out.println(plus.getPlus());
+				tokens[1].setToken(getToken());
 			}
 		} else if (isanchor) {
 			if (getCToken() == '{') {
-				start.setToken(getToken());
-				//System.out.println("<Token Start>");
-				//System.out.println(start.getStart());
+				tokens[2].setToken(getToken());
 			} else {
-				end.setToken(getToken());
-				//System.out.println("<Token End>");
-				//System.out.println(end.getEnd());
+				tokens[3].setToken(getToken());
 			}
 		} else if (isquote) {
-			quote.setToken(getToken());
-			//System.out.println("<Token Quote>");
-			//System.out.println(quote.getQuote());
+			tokens[4].setToken(getToken());
 		} else if (isword) {
-			word.setToken(getToken());
-			//System.out.println("<Token Word>");
-			//System.out.println(word.getWord());
-			//System.out.println(word.getLowercaseWord());
+			tokens[5].setToken(getToken());
+			String word = ((Word) tokens[5]).getLowercaseWord();
+	        switch (word) {
+		        case "move":
+	            	commands[0].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "say":
+		        	commands[1].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "rotateleftarm":
+		        	commands[2].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "rotaterightarm":
+		        	commands[3].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "repeat":
+		        	commands[4].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "define":
+		        	commands[5].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "call":
+		        	commands[6].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "thread":
+		        	commands[7].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "wait":
+		        	commands[8].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "proceedall":
+		        	commands[9].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "sleep":
+		        	commands[10].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "undo":
+		        	commands[11].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+		        case "redo":
+		        	commands[12].setToken(word);
+	            	System.out.println("command "+word);
+	            break;
+	            default:
+	            	tokens[5].setToken(getToken());
+	            	System.out.println("word " + tokens[5].getToken());
+	            break;
+            }
 		} else if (isnumber) {
-			number.setToken(getToken());
-			//System.out.println("<Token Number>");
-			//System.out.println(number.getStringNumber());
-			//System.out.println(number.getNumber());
+			tokens[6].setToken(getToken());
 		} else if (isillegal) {
-			//System.out.println("<Token Illegal>");
-			//System.out.println(getToken());
+			errors[eindex++] = getToken();
 		}
 	}
 	
@@ -222,7 +288,7 @@ public class Scanner {
 						if (getPrevIndex() < getIndex()) {
 							setToken(getString().substring(getPrevIndex(),getIndex()));
 							checkPrevToken();
-							printToken();
+							storeToken();
 						}
 						checkToken(getIndex());
 						setToken(getString().substring(getIndex(),getIndex()+1));
@@ -231,17 +297,17 @@ public class Scanner {
 						checkPrevToken();
 					}
 					setPrevIndex(getIndex()+1);
-					printToken();
+					storeToken();
 				}
 			}
 			if (getIndex() == getStrlen()-1) {
 				if (!issign && !isanchor && !isillegal) {
 					setToken(getString().substring(getPrevIndex(),getStrlen()));
-					printToken();
+					storeToken();
 				}
 				if (inquote) {
 					setToken(getString().substring(getPrevIndex(),getStrlen()));
-					printToken();
+					storeToken();
 					System.out.println("error: please end quote");
 				}
 			}

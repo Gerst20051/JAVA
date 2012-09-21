@@ -1,5 +1,15 @@
 package a4_commands;
 
-public class Repeat {
+import a4_token.Token;
 
+public class Repeat implements Token {
+	String token;
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getToken() {
+		return token;
+	}
 }

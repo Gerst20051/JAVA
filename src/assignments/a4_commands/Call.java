@@ -1,5 +1,15 @@
 package a4_commands;
 
-public class Call {
+import a4_token.Token;
 
+public class Call implements Token {
+	String token;
+	
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getToken() {
+		return token;
+	}
 }
