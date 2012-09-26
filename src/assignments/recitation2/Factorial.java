@@ -1,11 +1,5 @@
 package recitation2;
 
 public interface Factorial {
-
+	public int getFactorial();
 }
-
-/*
-Write an interface called Factorial
-This interface should contain the following method
-- public int getFactorial()
-*/

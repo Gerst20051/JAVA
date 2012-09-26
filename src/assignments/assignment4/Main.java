@@ -1,7 +1,6 @@
 package assignment4;
 
 import a4_scanner.Scanner;
-import console.Console;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 import util.misc.ThreadSupport;

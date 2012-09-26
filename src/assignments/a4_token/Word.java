@@ -20,6 +20,7 @@ public class Word implements Token, TokenWord {
 		return input.toLowerCase();
 	}
 	
+	@SuppressWarnings("unused")
 	private String[] toLowercase(String[] input) {
 		String[] output = new String[input.length];
 		for (int i = 0; i < output.length; i++) {

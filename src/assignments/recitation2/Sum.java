@@ -1,11 +1,5 @@
 package recitation2;
 
 public interface Sum {
-
+	public int getSum();
 }
-
-/*
-Write an interface called Sum
-This interface should contain the following method
-- public int getSum()
-*/
