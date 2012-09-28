@@ -1,5 +1,8 @@
 package assignment5;
 
+import util.annotations.StructurePattern;
+@StructurePattern("Line Pattern")
+
 public class ALine implements Line {
 	int x, y, width, height;
 	

@@ -14,24 +14,35 @@ public class RotatingLine {
 	public RotatingLine() {
 		OE = ObjectEditor.edit(line);
 	}
-
-	public void rotate() {
-		angle += Math.PI / reps;
+	
+	public void setLocation(int x, int y) {
+		line.setX(x);
+		line.setY(y);
+	}
+	
+	public void setAngle(double radius, double angle) {
 		point = new APolarPoint(radius, angle);
 		int width = point.getX(), height = point.getY();		
 		line.setWidth(width);
 		line.setHeight(height);
 	}
+
+	public void rotate() {
+		angle += Math.PI/reps;
+		setAngle(radius, angle);
+	}
 	
 	public void rotate(int reps) {
 		while (0 < reps--) {
-			ThreadSupport.sleep(100);
+			setLocation(reps+100, reps+100);
 			rotate();
 			OE.refresh();
+			ThreadSupport.sleep(100);
 		}
 	}
 	
 	public void doCircle() {
+		setLocation(100, 100);
 		rotate(2*reps);
 	}
 }

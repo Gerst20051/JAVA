@@ -1,6 +1,8 @@
 package assignment5;
 
 import bus.uigen.ObjectEditor;
+import util.annotations.StructurePattern;
+@StructurePattern("String Pattern")
 
 public class AStringShape implements StringShape {
 	String text;
