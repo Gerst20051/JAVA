@@ -4,7 +4,7 @@ import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
-public class Image {
+public class Image implements GraphicObject, GraphicObjectDisplayable, GraphicObjectImage {
 	OEFrame OE;
 	ImageShape image;
 	String[] filename;

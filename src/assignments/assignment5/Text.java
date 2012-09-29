@@ -4,7 +4,7 @@ import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import bus.uigen.ObjectEditor;
 
-public class Text {
+public class Text implements GraphicObject, GraphicObjectDisplayable, GraphicObjectText {
 	OEFrame OE;
 	StringShape string;
 	

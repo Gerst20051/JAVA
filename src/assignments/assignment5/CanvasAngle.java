@@ -1,12 +1,9 @@
 package assignment5;
 
-import util.misc.ThreadSupport;
-import bus.uigen.OEFrame;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectReference {
-	OEFrame OE;
+public class CanvasAngle {
 	boolean isOrigin = false;
 	double radius = 100, firstangle = 0, angle = Math.PI/4, origin = angle/2;
 	int width = 100, height = 0, reps = 32;
@@ -14,7 +11,7 @@ public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectRe
 	Line line2 = new ALine(0, 0, width, height);
 	Point point = new APolarPoint(radius, angle);
 	
-	public Angle() {
+	public CanvasAngle() {
 		setAngle();
 	}
 	
@@ -23,6 +20,10 @@ public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectRe
 		line.setY(y);
 		line2.setX(x);
 		line2.setY(y);
+	}
+	
+	public int getReps() {
+		return reps;
 	}
 	
 	@SuppressWarnings("unused")
@@ -38,22 +39,8 @@ public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectRe
 		origin = value;
 	}
 	
-	public void animateOrigin() {
-		int direction = 1, total = reps*9;
-		double oldangle = angle;
-		angle = 0;
-		setLocation(150, 100);
-		for (int i = total; 0 < i; i--) {
-			if (i < total) {
-				if (i%reps == 0) direction = -direction;
-				if (i%reps*2 == 0) origin += Math.PI/4;
-			}
-			angle += direction*(Math.PI/reps);
-			setOriginAngle();
-			ThreadSupport.sleep(25);
-			OE.refresh();
-		}
-		angle = oldangle;
+	public double getOrigin() {
+		return origin;
 	}
 	
 	public void setOriginAngle() {
@@ -80,6 +67,10 @@ public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectRe
 		setAngle();
 	}
 	
+	public double getAngle() {
+		return angle;
+	}
+	
 	public void setFirstAngle(double firstangle) {
 		point = new APolarPoint(radius, firstangle);
 		int width = point.getX(), height = point.getY();		
@@ -101,40 +92,8 @@ public class Angle implements GraphicObject, GraphicObjectAngle, GraphicObjectRe
 		setFirstAngle(firstangle);
 	}
 	
-	public void rotate(int reps) {
-		while (0 < reps--) {
-			setLocation(reps+100, reps+100);
-			rotate();
-			ThreadSupport.sleep(100);
-			OE.refresh();
-		}
-	}
-	
-	public void doCircle() {
-		setLocation(100, 100);
-		rotate(2*reps);
-	}
-	
 	public void rotateSecond() {
 		angle += Math.PI/reps;
 		setAngle(angle);
-	}
-	
-	public void rotateSecond(int reps) {
-		while (0 < reps--) {
-			setLocation(reps+100, reps+100);
-			rotateSecond();
-			ThreadSupport.sleep(100);
-			OE.refresh();
-		}
-	}
-	
-	public void doCircleSecond() {
-		setLocation(100, 100);
-		rotateSecond(2*reps);
-	}
-
-	public void reference(OEFrame object) {
-		OE = object;
 	}
 }
