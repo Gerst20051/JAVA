@@ -1,5 +1,6 @@
 package a4_scanner;
 
+import bus.uigen.OEFrame;
 import a4_token.*;
 import a4_token.Number;
 import a4_commands.*;
@@ -9,10 +10,11 @@ import util.annotations.StructurePatternNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 
 public class Scanner {
+	OEFrame OE;
 	String string;
 	String token;
-	Token[] tokens = new Token[7];
-	Token[] commands = new Token[13];
+	Token[] tokens = new Token[1];
+	Token[] commands = new Token[1];
 	String[] errors = new String[50];
 	boolean isspace = false;
 	boolean issign = false;
@@ -34,30 +36,11 @@ public class Scanner {
 	
 	public Scanner() {}
 	public Scanner(String input) {
-		tokens[tindex++] = new Minus();
-		tokens[tindex++] = new Plus();
-		tokens[tindex++] = new Start();
-		tokens[tindex++] = new End();
-		tokens[tindex++] = new Quote();
-		tokens[tindex++] = new Word();
-		tokens[tindex++] = new Number();
-		commands[cindex++] = new Move();
-		commands[cindex++] = new Say();
-		commands[cindex++] = new RotateLeftArm();
-		commands[cindex++] = new RotateRightArm();
-		commands[cindex++] = new Repeat();
-		commands[cindex++] = new Define();
-		commands[cindex++] = new Call();
-		commands[cindex++] = new Thread();
-		commands[cindex++] = new Wait();
-		commands[cindex++] = new Proceedall();
-		commands[cindex++] = new Sleep();
-		commands[cindex++] = new Undo();
-		commands[cindex++] = new Redo();
 		setString(input);
 	}
 	
 	public void setString(String input) {
+		resetVars();
 		setStrlen(input.length());
 		string = input;
 		processString();
@@ -67,8 +50,16 @@ public class Scanner {
 		return string;
 	}
 	
+	public void setTokens(Token[] input) {
+		tokens = input;
+	}
+	
 	public Token[] getTokens() {
 		return tokens;
+	}
+	
+	public void setCommands(Token[] input) {
+		commands = input;
 	}
 	
 	public Token[] getCommands() {
@@ -76,6 +67,9 @@ public class Scanner {
 	}
 	
 	void resetVars() {
+		tokens = new Token[1];
+		commands = new Token[1];
+		errors = new String[50];
 		isspace = false;
 		issign = false;
 		isanchor = false;
@@ -86,6 +80,9 @@ public class Scanner {
 		inword = false;
 		innumber = false;
 		inquote = false;
+		eindex = 0;
+		tindex = 0;
+		cindex = 0;
 		pindex = 0;
 		index = 0;
 		strlen = 0;
@@ -195,84 +192,105 @@ public class Scanner {
 		++index;
 	}
 	
+	void appendTokenArray(Token instance) {
+		int tokensLength = tokens.length;
+		Token[] newTokens = new Token[tokensLength+1];
+		for (int i = 0; i < tokensLength; i++) {
+			newTokens[i] = tokens[i];
+		}
+		newTokens[tokensLength] = instance;
+		setTokens(newTokens);
+		tindex++;
+	}
+	
+	void appendCommandArray(Token instance) {
+		int commandsLength = commands.length;
+		Token[] newCommands = new Token[commandsLength+1];
+		for (int i = 0; i < commandsLength; i++) {
+			newCommands[i] = commands[i];
+		}
+		newCommands[commandsLength] = instance;
+		setCommands(newCommands);
+		cindex++;
+	}
+	
 	void storeToken() {
 		if (issign) {
 			if (getCToken() == '-') {
-				tokens[0].setToken(getToken());
+				appendTokenArray(new Minus(getToken()));
 			} else {
-				tokens[1].setToken(getToken());
+				appendTokenArray(new Plus(getToken()));
 			}
 		} else if (isanchor) {
 			if (getCToken() == '{') {
-				tokens[2].setToken(getToken());
+				appendTokenArray(new Start(getToken()));
 			} else {
-				tokens[3].setToken(getToken());
+				appendTokenArray(new End(getToken()));
 			}
 		} else if (isquote) {
-			tokens[4].setToken(getToken());
+			appendTokenArray(new Quote(getToken()));
 		} else if (isword) {
-			tokens[5].setToken(getToken());
-			String word = ((Word) tokens[5]).getLowercaseWord();
+			String word = new Word(getToken()).getLowercaseWord();
 	        switch (word) {
 		        case "move":
-	            	commands[0].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Move(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "say":
-		        	commands[1].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Say(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "rotateleftarm":
-		        	commands[2].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new RotateLeftArm(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "rotaterightarm":
-		        	commands[3].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new RotateRightArm(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "repeat":
-		        	commands[4].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Repeat(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "define":
-		        	commands[5].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Define(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "call":
-		        	commands[6].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Call(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "thread":
-		        	commands[7].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Thread(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "wait":
-		        	commands[8].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Wait(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "proceedall":
-		        	commands[9].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Proceedall(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "sleep":
-		        	commands[10].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Sleep(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "undo":
-		        	commands[11].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Undo(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 		        case "redo":
-		        	commands[12].setToken(word);
-	            	System.out.println("command "+word);
+		        	appendCommandArray(new Redo(word));
+	            	System.out.println("command " + commands[cindex].getToken());
 	            break;
 	            default:
-	            	tokens[5].setToken(getToken());
-	            	System.out.println("word " + tokens[5].getToken());
+	            	appendTokenArray(new Word(getToken()));
+	            	System.out.println("word " + tokens[tindex].getToken());
 	            break;
             }
 		} else if (isnumber) {
-			tokens[6].setToken(getToken());
+			appendTokenArray(new Number(getToken()));
 		} else if (isillegal) {
 			errors[eindex++] = getToken();
 		}
@@ -312,7 +330,11 @@ public class Scanner {
 				}
 			}
 			nextToken();
+			OE.refresh();
 		}
-		resetVars();
+	}
+	
+	public void reference(OEFrame editor) {
+		OE = editor;
 	}
 }

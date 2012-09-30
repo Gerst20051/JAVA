@@ -15,9 +15,9 @@ public class Main {
 		animate[2] = "wait 02";
 		animate[3] = "RotateLeftArm +50";
 		animate[4] = "MoVe 050 {saY \"hi5!\"}";
+		scanner.reference(editor);
 		for (int i = 0; i < animate.length; i++) {
 			scanner.setString(animate[i]);
-			editor.refresh();
 			ThreadSupport.sleep(3000);
 		}
 	}
