@@ -1,0 +1,167 @@
+package assignment6;
+
+import java.awt.Color;
+import java.awt.Stroke;
+import bus.uigen.OEFrame;
+import util.annotations.StructurePattern;
+import util.annotations.Visible;
+import util.misc.ThreadSupport;
+@StructurePattern("Bean Pattern")
+
+public class Avatar {
+	OEFrame OE;
+	CanvasImageAvatar avatar;
+	CanvasText speech = new CanvasText();
+	CanvasLine torso = new CanvasLine();
+	CanvasAngle arms = new CanvasAngle();
+	CanvasAngle legs = new CanvasAngle();
+	final int image_height = 56;
+	final int image_width = 64;
+	final int torso_length = 50;
+	
+	public Avatar(String input) {
+		avatar = new CanvasImageAvatar(input);
+		torso.rotate(torso.getReps()/2);
+		arms.setOriginAngle();
+		legs.setOriginAngle();
+	}
+	
+	public void setLocation(int x, int y) {
+		avatar.setLocation(x, y);
+		speech.setLocation(x+image_width+8, y+16);
+		torso.setLocation(x+image_width/2, y+image_height);
+		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*0.2)));
+		legs.setLocation(x+image_width/2, y+image_height+torso_length);
+	}
+	
+	public void moveLocation(int x, int y) {
+		x += avatar.getX();
+		y += avatar.getY();
+		avatar.setLocation(x, y);
+		speech.setLocation(x+image_width+8, y+16);
+		torso.setLocation(x+image_width/2, y+image_height);
+		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*0.2)));
+		legs.setLocation(x+image_width/2, y+image_height+torso_length);
+	}
+	
+	public int getX() {
+		return avatar.getX();
+	}
+	
+	public int getY() {
+		return avatar.getY();
+	}
+	
+	@Visible(false)
+	public Color getColor() {
+		return torso.getColor();
+	}
+	
+	public void setColor(Color input) {
+		torso.setColor(input);
+		arms.setColor(input);
+		legs.setColor(input);
+	}
+	
+	@Visible(false)
+	public Stroke getStroke() {
+		return torso.getStroke();
+	}
+	
+	public void setStroke(Stroke input) {
+		torso.setStroke(input);
+		arms.setStroke(input);
+		legs.setStroke(input);
+	}
+	
+	public CanvasImageAvatar getAvatarImage() {
+		return avatar;
+	}
+	
+	public CanvasText getSpeechText() {
+		return speech;
+	}
+	
+	public CanvasLine getTorsoLine() {
+		return torso;
+	}
+	
+	public CanvasAngle getArmsAngle() {
+		return arms;
+	}
+	
+	public CanvasAngle getLegsAngle() {
+		return legs;
+	}
+	
+	public void say(String text) {
+		speech.setText(text);
+	}
+	
+	public void say(int reps, String[] text) {
+		while (0 < reps--) {
+			speech.setText(text[(int) Math.floor(Math.random()*text.length)]);
+			ThreadSupport.sleep(300);
+			OE.refresh();
+		}
+		ThreadSupport.sleep(300);
+		speech.setText("");
+		OE.refresh();
+	}
+	
+	public void turnHead(int reps) {
+		while (0 < reps--) {
+			if (avatar.getOrientation() == "forward") {
+				avatar.lookRight();
+			} else if (avatar.getOrientation() == "right") {
+				avatar.lookBack();
+			} else if (avatar.getOrientation() == "back") {
+				avatar.lookLeft();
+			} else if (avatar.getOrientation() == "left") {
+				avatar.lookForward();
+			}
+			ThreadSupport.sleep(300);
+			OE.refresh();
+		}
+	}
+	
+	public void animateArms(int input) {
+		int direction = 1, reps = arms.getReps(), total = reps*(input*2);
+		double oldangle = arms.getAngle();
+		arms.setAngle(0);
+		for (int i = total; 0 < i; i--) {
+			if (i < total) {
+				if (i%reps == 0) direction = -direction;
+			}
+			arms.setAngle(arms.getAngle()+direction*(Math.PI/(reps/2)));
+			arms.setOriginAngle();
+			ThreadSupport.sleep(25);
+			OE.refresh();
+		}
+		arms.setAngle(oldangle);
+		arms.setOriginAngle();
+		OE.refresh();
+	}
+	
+	public void animateLegs(int input) {
+		int direction = 1, reps = legs.getReps(), total = reps*(input*2);
+		double oldangle = legs.getAngle();
+		legs.setAngle(0);
+		for (int i = total; 0 < i; i--) {
+			if (i < total) {
+				if (i%reps == 0) direction = -direction;
+			}
+			legs.setAngle(legs.getAngle()+direction*(Math.PI/reps));
+			legs.setOriginAngle();
+			ThreadSupport.sleep(25);
+			OE.refresh();
+		}
+		legs.setAngle(oldangle);
+		legs.setOriginAngle();
+		OE.refresh();
+	}
+	
+	public void reference(OEFrame object) {
+		OE = object;
+	}
+}
