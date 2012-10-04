@@ -1,4 +1,4 @@
-package a5_commands;
+package a6_commands;
 
 public class ACommand {
 	String token;

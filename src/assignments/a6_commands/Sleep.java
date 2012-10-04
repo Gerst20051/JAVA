@@ -1,6 +1,6 @@
-package a5_commands;
+package a6_commands;
 
-import a5_token.Token;
+import a6_token.Token;
 
 public class Sleep extends ACommand implements Token {
 	public Sleep(String word) {

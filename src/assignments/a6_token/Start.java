@@ -1,4 +1,4 @@
-package a5_token;
+package a6_token;
 
 public class Start extends AToken implements Token {
 	public Start() {

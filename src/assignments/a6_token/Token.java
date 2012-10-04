@@ -1,4 +1,4 @@
-package a5_token;
+package a6_token;
 
 public interface Token {
 	public void setToken(String token);

@@ -1,6 +1,6 @@
-package a5_commands;
+package a6_commands;
 
-import a5_token.Token;
+import a6_token.Token;
 
 public class Proceedall extends ACommand implements Token {
 	public Proceedall(String word) {

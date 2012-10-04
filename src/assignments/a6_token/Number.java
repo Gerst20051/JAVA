@@ -1,4 +1,4 @@
-package a5_token;
+package a6_token;
 
 import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;

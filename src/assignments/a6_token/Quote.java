@@ -1,4 +1,4 @@
-package a5_token;
+package a6_token;
 
 public class Quote extends AToken implements Token {
 	public Quote() {
