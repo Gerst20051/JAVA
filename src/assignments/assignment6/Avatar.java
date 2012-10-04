@@ -8,7 +8,7 @@ import util.annotations.Visible;
 import util.misc.ThreadSupport;
 @StructurePattern("Bean Pattern")
 
-public class Avatar {
+public class Avatar implements GraphicAvatar {
 	OEFrame OE;
 	CanvasImageAvatar avatar;
 	CanvasText speech = new CanvasText();
@@ -17,7 +17,6 @@ public class Avatar {
 	CanvasAngle legs = new CanvasAngle();
 	final int image_height = 56;
 	final int image_width = 64;
-	final int torso_length = 50;
 	
 	public Avatar(String input) {
 		avatar = new CanvasImageAvatar(input);
@@ -27,29 +26,32 @@ public class Avatar {
 	}
 	
 	public void setLocation(int x, int y) {
+		double scale = torso.getScale();
+		double torso_length = torso.getRadius();
 		avatar.setLocation(x, y);
 		speech.setLocation(x+image_width+8, y+16);
 		torso.setLocation(x+image_width/2, y+image_height);
-		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*0.2)));
-		legs.setLocation(x+image_width/2, y+image_height+torso_length);
+		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)*0.2));
+		legs.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)));
 	}
 	
 	public void moveLocation(int x, int y) {
+		double scale = torso.getScale();
+		double torso_length = torso.getRadius();
 		x += avatar.getX();
 		y += avatar.getY();
 		avatar.setLocation(x, y);
 		speech.setLocation(x+image_width+8, y+16);
 		torso.setLocation(x+image_width/2, y+image_height);
-		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*0.2)));
-		legs.setLocation(x+image_width/2, y+image_height+torso_length);
+		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)*0.2));
+		legs.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)));
 	}
 	
-	public int getX() {
-		return avatar.getX();
-	}
-	
-	public int getY() {
-		return avatar.getY();
+	public void setScale(double input) {
+		torso.setScale(input);
+		arms.setScale(input);
+		legs.setScale(input);
+		moveLocation(0, 0);
 	}
 	
 	@Visible(false)

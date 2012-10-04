@@ -1,17 +1,23 @@
 package assignment6;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import bus.uigen.ObjectEditor;
 import util.annotations.StructurePattern;
 @StructurePattern("Image Pattern")
 
 public class AShapeImage implements ImageShape {
+	int x, y, imageHeight, imageWidth;
 	String imageFileName;
-	int x, y;
+	Icon icon;
 	
 	public AShapeImage(String initImageFileName, int initX, int initY) {
 		imageFileName = initImageFileName;
 		x = initX;
 		y = initY;
+		icon = new ImageIcon(imageFileName);
+		imageHeight = icon.getIconHeight();
+		imageWidth = icon.getIconWidth();
 	}
 	
 	public int getX() { return x; }
@@ -20,6 +26,8 @@ public class AShapeImage implements ImageShape {
 	public void setY(int newY) { y = newY; }
 	public String getImageFileName() { return imageFileName; }
 	public void setImageFileName(String newVal) { imageFileName = newVal; }
+	public int getHeight() { return imageHeight; }
+	public int getWidth() { return imageWidth; }
 
 	public static void main (String args[]) {
 		ImageShape shuttle = new AShapeImage("src/assignment5/Dorothy.jpg", 0, 0);

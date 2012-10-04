@@ -3,7 +3,7 @@ package assignment6;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class CanvasText implements GraphicObject, GraphicObjectText {
+public class CanvasText implements GraphicObjectText {
 	StringShape string = new AStringShape("", 0, 0);
 	
 	public CanvasText(){}

@@ -8,12 +8,13 @@ import util.annotations.StructurePattern;
 import util.misc.ThreadSupport;
 @StructurePattern("Bean Pattern")
 
-public class Canvas {
+public class Canvas implements GraphicCanvas {
 	OEFrame OE;
 	CanvasImage background = new CanvasImage("Background.jpg");
 	Avatar dorothy = new Avatar("Dorothy.jpg");
 	Avatar scarecrow = new Avatar("Scarecrow.jpg");
 	Avatar wizard = new Avatar("Wizard.jpg");
+	Avatar[] avatars = {dorothy, scarecrow, wizard};
 	
 	@Position(4)
 	public CanvasImage getBackgroundImage() {
@@ -99,7 +100,7 @@ public class Canvas {
 		}
 	}
 	
-	public void animateScene() {
+	private void animateScene() {
 		dorothy.say("Hang on for the ride!");
 		OE.refresh();
 		scrollScene(100,100,2);
@@ -115,30 +116,37 @@ public class Canvas {
 		OE.refresh();
 	}
 	
+	private void doDance(Avatar resource) {
+		resource.moveLocation(-20,-20);
+		OE.refresh();
+		ThreadSupport.sleep(300);
+		resource.moveLocation(40,0);
+		OE.refresh();
+		ThreadSupport.sleep(300);
+		resource.moveLocation(0,40);
+		OE.refresh();
+		ThreadSupport.sleep(300);
+		resource.moveLocation(-40,0);
+		OE.refresh();
+		ThreadSupport.sleep(300);
+		resource.moveLocation(20,-20);
+		OE.refresh();
+	}
+	
 	public void init() {
 		setReferences();
 		setLocations();
 		styleLines();
+		dorothy.setScale(3);
+		scarecrow.setScale(0.65);
+		wizard.setScale(2);
 		doIntroductions();
 		animateScene();
 		dorothy.turnHead(6);
 		dorothy.animateLegs(3);
 		String[] scarecrow_speech = {"Wizard of Oz","Random String","Yay!","Interesting!","Last Text String in Array"};
 		scarecrow.say(10,scarecrow_speech);
-		dorothy.moveLocation(-20,-20);
-		OE.refresh();
-		ThreadSupport.sleep(300);
-		dorothy.moveLocation(40,0);
-		OE.refresh();
-		ThreadSupport.sleep(300);
-		dorothy.moveLocation(0,40);
-		OE.refresh();
-		ThreadSupport.sleep(300);
-		dorothy.moveLocation(-40,0);
-		OE.refresh();
-		ThreadSupport.sleep(300);
-		dorothy.moveLocation(20,-20);
-		OE.refresh();
+		doDance(avatars[(int) Math.floor((double) (Math.random()*avatars.length))]);
 		wizard.animateArms(2);
 		dorothy.getAvatarImage().lookForward();
 		OE.refresh();

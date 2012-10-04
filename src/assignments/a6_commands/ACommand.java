@@ -1,13 +1,7 @@
 package a6_commands;
 
-public class ACommand {
-	String token;
-	
-	public void setToken(String token) {
-		this.token = token;
-	}
+import a6_token.AToken;
 
-	public String getToken() {
-		return token;
-	}
+public class ACommand extends AToken {
+	
 }

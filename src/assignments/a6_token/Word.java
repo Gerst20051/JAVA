@@ -4,7 +4,7 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 
-public class Word extends AToken implements Token, TokenWord {
+public class Word extends AToken implements TokenWord {
 	String word;
 	String lowercaseWord;
 

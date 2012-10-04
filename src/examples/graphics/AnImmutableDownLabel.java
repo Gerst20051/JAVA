@@ -8,8 +8,8 @@ public class AnImmutableDownLabel implements ImmutableLabel {
 	int x, y;
 	int width = 100;
 	int height = 100;
-	String imageFileName = "src/assignment5/Dorothy.jpg";
-	String text = "";
+	String imageFileName = "src/graphics/image.jpg";
+	String text = "Hey";
 	
 	public AnImmutableDownLabel(int theX, int theY) {
 		x = theX;

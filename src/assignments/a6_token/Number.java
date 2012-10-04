@@ -4,7 +4,7 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 
-public class Number extends AToken implements Token, TokenNumber {
+public class Number extends AToken implements TokenNumber {
 	String stringNumber;
 	int number;
 

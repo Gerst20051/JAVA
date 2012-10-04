@@ -22,7 +22,7 @@ public class AShapeImage implements ImageShape {
 	public void setImageFileName(String newVal) { imageFileName = newVal; }
 
 	public static void main (String args[]) {
-		ImageShape shuttle = new AShapeImage("src/assignment5/Dorothy.jpg", 0, 0);
+		ImageShape shuttle = new AShapeImage("src/graphics/image.jpg", 0, 0);
 		ObjectEditor.edit(shuttle);
 		shuttle.setX(100);
 		shuttle.setY(100);

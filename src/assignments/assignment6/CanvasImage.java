@@ -3,7 +3,7 @@ package assignment6;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class CanvasImage implements GraphicObject, GraphicObjectDisplayable, GraphicObjectImage {
+public class CanvasImage implements GraphicObjectImage {
 	ImageShape image;
 	String[] filename;
 	String dir = "src/images/";
@@ -29,8 +29,24 @@ public class CanvasImage implements GraphicObject, GraphicObjectDisplayable, Gra
 		image.setImageFileName(dir+"hidden.png");
 	}
 	
+	public int getHeight() {
+		return image.getHeight();
+	}
+	
+	public int getWidth() {
+		return image.getWidth();
+	}
+	
 	public void setLocation(int x, int y) {
 		image.setX(x);
 		image.setY(y);
+	}
+	
+	public int getX() {
+		return image.getX();
+	}
+	
+	public int getY() {
+		return image.getY();
 	}
 }

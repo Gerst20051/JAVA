@@ -6,9 +6,9 @@ import util.annotations.StructurePattern;
 import util.annotations.Visible;
 @StructurePattern("Bean Pattern")
 
-public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, GraphicObjectAngle {
+public class CanvasAngle implements GraphicObjectAngle {
 	boolean isOrigin = false;
-	double radius = 50, firstangle = 0, angle = Math.PI/2, origin = Math.PI/2;
+	double radius = 50, firstangle = 0, angle = Math.PI/2, origin = Math.PI/2, scale = 1;
 	int width = 50, height = 0, reps = 32;
 	Line line = new ALine(0, 0, width, height);
 	Line line2 = new ALine(0, 0, width, height);
@@ -16,26 +16,6 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 	
 	public CanvasAngle() {
 		setAngle();
-	}
-	
-	@Visible(false)
-	public Color getColor() {
-		return line.getColor();
-	}
-	
-	public void setColor(Color input) {
-		line.setColor(input);
-		line2.setColor(input);
-	}
-	
-	@Visible(false)
-	public Stroke getStroke() {
-		return line.getStroke();
-	}
-	
-	public void setStroke(Stroke input) {
-		line.setStroke(input);
-		line2.setStroke(input);
 	}
 	
 	public void setLocation(int x, int y) {
@@ -47,6 +27,15 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 	
 	public int getReps() {
 		return reps;
+	}
+	
+	public void setScale(double input) {
+		scale = input;
+		setOriginAngle();
+	}
+	
+	public double getScale() {
+		return scale;
 	}
 	
 	@SuppressWarnings("unused")
@@ -67,11 +56,11 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 	}
 	
 	public void setOriginAngle() {
-		point = new APolarPoint(radius, origin+(angle/2));
+		point = new APolarPoint(radius*scale, origin+(angle/2));
 		int width = point.getX(), height = point.getY();
 		line2.setWidth(width);
 		line2.setHeight(height);
-		point = new APolarPoint(radius, origin-(angle/2));
+		point = new APolarPoint(radius*scale, origin-(angle/2));
 		width = point.getX();
 		height = point.getY();
 		line.setWidth(width);
@@ -79,7 +68,7 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 	}
 	
 	public void setAngle() {
-		point = new APolarPoint(radius, angle+firstangle);
+		point = new APolarPoint(radius*scale, angle+firstangle);
 		int width = point.getX(), height = point.getY();
 		line2.setWidth(width);
 		line2.setHeight(height);
@@ -95,7 +84,7 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 	}
 	
 	public void setFirstAngle(double firstangle) {
-		point = new APolarPoint(radius, firstangle);
+		point = new APolarPoint(radius*scale, firstangle);
 		int width = point.getX(), height = point.getY();		
 		line.setWidth(width);
 		line.setHeight(height);
@@ -130,5 +119,25 @@ public class CanvasAngle implements GraphicObject, GraphicObjectRotatable, Graph
 		while (0 < reps--) {
 			rotateSecond();
 		}
+	}
+	
+	@Visible(false)
+	public Color getColor() {
+		return line.getColor();
+	}
+	
+	public void setColor(Color input) {
+		line.setColor(input);
+		line2.setColor(input);
+	}
+	
+	@Visible(false)
+	public Stroke getStroke() {
+		return line.getStroke();
+	}
+	
+	public void setStroke(Stroke input) {
+		line.setStroke(input);
+		line2.setStroke(input);
 	}
 }

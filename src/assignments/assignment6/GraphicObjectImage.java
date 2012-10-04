@@ -1,5 +1,9 @@
 package assignment6;
 
-public interface GraphicObjectImage {
+public interface GraphicObjectImage extends GraphicObject, GraphicObjectDisplayable {
 	public ImageShape getImage();
+	public int getHeight();
+	public int getWidth();
+	public int getX();
+	public int getY();
 }

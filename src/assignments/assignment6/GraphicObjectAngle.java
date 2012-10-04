@@ -1,6 +1,6 @@
 package assignment6;
 
-public interface GraphicObjectAngle {
+public interface GraphicObjectAngle extends GraphicObject, GraphicObjectRotatable, GraphicObjectStyleable, GraphicObjectScalable {
 	public void isOrigin(boolean value);
 	public void setOrigin(double value);
 	public double getOrigin();
