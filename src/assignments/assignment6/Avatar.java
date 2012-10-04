@@ -15,9 +15,7 @@ public class Avatar implements GraphicAvatar {
 	CanvasLine torso = new CanvasLine();
 	CanvasAngle arms = new CanvasAngle();
 	CanvasAngle legs = new CanvasAngle();
-	final int image_height = 56;
-	final int image_width = 64;
-	
+
 	public Avatar(String input) {
 		avatar = new CanvasImageAvatar(input);
 		torso.rotate(torso.getReps()/2);
@@ -28,6 +26,7 @@ public class Avatar implements GraphicAvatar {
 	public void setLocation(int x, int y) {
 		double scale = torso.getScale();
 		double torso_length = torso.getRadius();
+		int image_height = avatar.getHeight(), image_width = avatar.getWidth();
 		avatar.setLocation(x, y);
 		speech.setLocation(x+image_width+8, y+16);
 		torso.setLocation(x+image_width/2, y+image_height);
@@ -36,15 +35,9 @@ public class Avatar implements GraphicAvatar {
 	}
 	
 	public void moveLocation(int x, int y) {
-		double scale = torso.getScale();
-		double torso_length = torso.getRadius();
 		x += avatar.getX();
 		y += avatar.getY();
-		avatar.setLocation(x, y);
-		speech.setLocation(x+image_width+8, y+16);
-		torso.setLocation(x+image_width/2, y+image_height);
-		arms.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)*0.2));
-		legs.setLocation(x+image_width/2, (int) (y+image_height+(torso_length*scale)));
+		setLocation(x, y);
 	}
 	
 	public void setScale(double input) {
