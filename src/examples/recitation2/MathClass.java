@@ -1,36 +1,39 @@
-package recitation2;
+package recitation3;
 
-public class MathClass implements Sum, Factorial, NumberHolder {
+public class MathClass {
 	int n;
-
-	@Override
-	public void setNumber(int newNumber) {
-		n = newNumber;
+	Rectangle sumRectangle; 
+	Rectangle factorialRectangle;
+	
+	public void setNumber(int newnumber) {
+		n = newnumber;
 	}
-
-	@Override
+	
 	public int getNumber() {
 		return n;
 	}
-
-	@Override
-	public int getFactorial() {
-		if (n==0 || n==1) return 1;
-		int factorial = n;
-		for (int i = n-1 ;i > 1;i--) {
-			factorial = factorial * i;
-		}
-		return factorial;
+	
+	public int getsum() {
+		return (n * (n + 1)) / 2;
 	}
-
-	@Override
-	public int getSum() {
-		if (n==0) return 0;
-		if (n==1) return 1;
-		int sum = n;
-		for (int i = n-1 ;i > 0;i--) {
-			sum += i;
+	
+	public int getfactorial() {
+		return myfactorial(n);
+	}
+	
+	public Rectangle getsumRectangle() {
+		return sumRectangle = new CartesianRectangle(10,0,20,getsum());
+	}
+	
+	public Rectangle getfactorialRectangle() {
+		return factorialRectangle = new CartesianRectangle(40,0,20,getfactorial());
+	}
+	
+	private int myfactorial(int number) {
+		if (number <= 1) {
+			return 1;
+		} else {
+			return number * myfactorial(number - 1);
 		}
-		return sum;
 	}
 }
