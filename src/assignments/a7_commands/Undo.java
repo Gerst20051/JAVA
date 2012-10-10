@@ -1,8 +1,6 @@
 package a7_commands;
 
-import a6_token.Token;
-
-public class Undo extends ACommand implements Token {
+public class Undo extends ACommand {
 	public Undo(String word) {
 		setToken(word);
 	}

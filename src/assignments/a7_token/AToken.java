@@ -1,5 +1,8 @@
 package a7_token;
 
+import util.annotations.StructurePattern;
+@StructurePattern("Bean Pattern")
+
 public class AToken {
 	String token;
 	

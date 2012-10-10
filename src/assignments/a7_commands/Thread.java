@@ -1,8 +1,6 @@
 package a7_commands;
 
-import a6_token.Token;
-
-public class Thread extends ACommand implements Token {
+public class Thread extends ACommand {
 	public Thread(String word) {
 		setToken(word);
 	}

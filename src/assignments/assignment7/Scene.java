@@ -1,5 +1,6 @@
 package assignment7;
 
+import java.awt.Color;
 import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
 import util.annotations.StructurePattern;
@@ -10,6 +11,7 @@ public class Scene {
 	Canvas canvas = new Canvas();
 	Scanner scanner = new Scanner("");
 	Parser parser = new Parser(canvas, scanner);
+	ATable table = new ATable();
 
 	public Scene() {
 		
@@ -17,6 +19,18 @@ public class Scene {
 	
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public Scanner getScanner() {
+		return scanner;
+	}
+	
+	public Parser getParser() {
+		return parser;
+	}
+	
+	public ATable getTable() {
+		return table;
 	}
 	
 	private void animateScene() {
@@ -28,8 +42,35 @@ public class Scene {
 		animate[4] = "move ScareCrow 10 10";
 		for (int i = 0; i < animate.length; i++) {
 			parser.setString(animate[i]);
-			ThreadSupport.sleep(3000);
+			ThreadSupport.sleep(2000);
 		}
+	}
+	
+	private void animateDatabase() {
+		table.put("line", new ALine(0, 0, 5, 10));
+		table.put("line2", new ALine(1, 2, 50, 100));
+		System.out.println(((ALine) table.get("line")).getWidth());
+		System.out.println(((ALine) table.get("line2")).getHeight());
+		System.out.println("Database has "+table.size()+" entries!");
+		table.put("line", new ALine(25, 25, 25, 25));
+		System.out.println(((ALine) table.get("line")).getX());
+		System.out.println("Database has "+table.size()+" entries!");
+		table.delete("line");
+		System.out.println("Database has "+table.size()+" entries!");
+		table.put("dorothy", new Avatar("Dorothy.jpg"));
+		System.out.println("Database has "+table.size()+" entries!");
+		((Avatar) table.get("dorothy")).setColor(Color.BLUE);
+		System.out.println(((Avatar) table.get("dorothy")).getColor());
+		System.out.println("Member line: "+table.member("line"));
+		System.out.println("Member line2: "+table.member("line2"));
+		System.out.println("IndexOf line: "+table.indexOf("line"));
+		System.out.println("IndexOf line2: "+table.indexOf("line2"));
+		System.out.println("IndexOf dorothy: "+table.indexOf("dorothy"));
+		table.clear();
+		System.out.println("Database has "+table.size()+" entries!");
+		table.get("dorothy");
+		System.out.println("IndexOf dorothy: "+table.indexOf("dorothy"));
+		System.out.println("Member dorothy: "+table.member("dorothy"));
 	}
 	
 	public void init() {
@@ -38,11 +79,8 @@ public class Scene {
 		//parser.reference(OE);
 		canvas.init();
 		//canvas.animate();
-		//animateScene();
-		canvas.getDorothyAvatar().rotateLeftArm(1);
-		canvas.getDorothyAvatar().rotateRightArm(1);
-		canvas.getDorothyAvatar().rotateLeftLeg(1);
-		canvas.getDorothyAvatar().rotateRightLeg(1);
+		animateScene();
+		//animateDatabase();
 	}
 	
 	public void reference(OEFrame editor) {

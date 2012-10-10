@@ -1,8 +1,6 @@
 package a7_commands;
 
-import a6_token.Token;
-
-public class Redo extends ACommand implements Token {
+public class Redo extends ACommand {
 	public Redo(String word) {
 		setToken(word);
 	}

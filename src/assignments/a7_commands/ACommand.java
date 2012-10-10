@@ -1,7 +1,7 @@
 package a7_commands;
 
-import a6_token.AToken;
+import a7_token.AToken;
 
-public class ACommand extends AToken {
+public class ACommand extends AToken implements Command {
 	
 }

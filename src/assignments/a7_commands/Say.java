@@ -1,8 +1,6 @@
 package a7_commands;
 
-import a6_token.Token;
-
-public class Say extends ACommand implements Token {
+public class Say extends ACommand {
 	public Say(String word) {
 		setToken(word);
 	}
