@@ -1,13 +1,14 @@
 package assignment7;
 
 public interface StringDatabase {
-	//from history
 	public int size();
-	public void addElement(String element);
+	public boolean isFull();
 	public String elementAt(int index);
-
-	//additional methods
+	public void addElement(String element);
 	public void removeElement(String element);
+	public void removeElement(int startIndex);
+	public void modifyElement(int index, String element);
+	public int indexOf(String element);
 	public boolean member(String element);
 	public void clear();
 }

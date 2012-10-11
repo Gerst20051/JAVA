@@ -6,14 +6,14 @@ import bus.uigen.OEFrame;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class Scene {
+public class AScene {
 	OEFrame OE;
 	Canvas canvas = new Canvas();
-	Scanner scanner = new Scanner("");
-	Parser parser = new Parser(canvas, scanner);
+	AScanner scanner = new AScanner("");
+	AParser parser = new AParser(canvas, scanner);
 	ATable table = new ATable();
 
-	public Scene() {
+	public AScene() {
 		
 	}
 	
@@ -21,11 +21,11 @@ public class Scene {
 		return canvas;
 	}
 	
-	public Scanner getScanner() {
+	public AScanner getScanner() {
 		return scanner;
 	}
 	
-	public Parser getParser() {
+	public AParser getParser() {
 		return parser;
 	}
 	
@@ -34,15 +34,26 @@ public class Scene {
 	}
 	
 	private void animateScene() {
-		String[] animate = new String[5];
-		animate[0] = "MoVe Dorothy 100 100";
-		animate[1] = "saY DOROTHY \"hi5!\"";
+		String[] animate = new String[10];
+		animate[0] = "saY DOROTHY \"hi5!\"";
+		animate[1] = "MoVe Dorothy 100 100";
 		animate[2] = "MoVe WIZARD -50 -50";
 		animate[3] = "say scarecrow \"I'm scary!\"";
-		animate[4] = "move ScareCrow 10 10";
+		animate[4] = "move dorothy -100 -100";
+		animate[5] = "hello WIZARD -50 -50"; // [0] not command
+		animate[6] = "MoVe 200 100 100"; // [1] not word
+		animate[7] = "saY DOROTHY 100"; // [2] not quote
+		animate[8] = "move ScareCrow \"hey\" 10"; // [2] not number (is quote)
+		animate[9] = "move SCARECROW 250 -"; // [3] not number (is sign)
 		for (int i = 0; i < animate.length; i++) {
 			parser.setString(animate[i]);
-			ThreadSupport.sleep(2000);
+			ThreadSupport.sleep(1000);
+		}
+	}
+	
+	private void reverseScene() {
+		for (int i = 0; i < parser.getHistory().size(); i++) {
+			// Starting to work on undo functions
 		}
 	}
 	
@@ -76,11 +87,10 @@ public class Scene {
 	public void init() {
 		canvas.reference(OE);
 		scanner.reference(OE);
-		//parser.reference(OE);
+		parser.reference(OE);
 		canvas.init();
-		//canvas.animate();
 		animateScene();
-		//animateDatabase();
+		animateDatabase();
 	}
 	
 	public void reference(OEFrame editor) {

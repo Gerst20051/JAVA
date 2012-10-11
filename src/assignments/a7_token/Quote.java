@@ -2,10 +2,10 @@ package a7_token;
 
 public class Quote extends AToken implements Token {
 	public Quote() {
-		setToken("\"Blah1\"");
+		setToken("Blah1");
 	}
 	
 	public Quote(String input) {
-		setToken(input);
+		setToken(input.substring(1,input.length()-1));
 	}
 }

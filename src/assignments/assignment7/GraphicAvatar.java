@@ -18,6 +18,7 @@ public interface GraphicAvatar {
 	public CanvasAngle getArmsAngle();
 	public CanvasAngle getLegsAngle();
 	public void say(String text);
+	public void say(String text, int secs);
 	public void say(int reps, String[] text);
 	public void turnHead(int reps);
 	public void animateArms(int input);

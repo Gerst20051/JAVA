@@ -24,11 +24,9 @@ public class ATable {
 		if (key == null || val == null) return;
 		if (keys.member(key)) {
 			values.modifyElement(keys.indexOf(key), val);
-			System.out.println(values.size());
 		} else {
 			keys.addElement(key);
 			values.addElement(val);
-			System.out.println(values.size());
 		}
 	}
 	

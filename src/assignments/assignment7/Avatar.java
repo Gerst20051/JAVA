@@ -95,6 +95,14 @@ public class Avatar implements GraphicAvatar {
 		speech.setText(text);
 	}
 	
+	public void say(String text, int secs) {
+		speech.setText(text);
+		OE.refresh();
+		ThreadSupport.sleep(secs*1000);
+		speech.setText("");
+		OE.refresh();
+	}
+	
 	public void say(int reps, String[] text) {
 		while (0 < reps--) {
 			speech.setText(text[(int) Math.floor(Math.random()*text.length)]);

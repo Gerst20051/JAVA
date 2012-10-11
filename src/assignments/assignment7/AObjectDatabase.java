@@ -1,5 +1,8 @@
 package assignment7;
 
+import util.annotations.StructurePattern;
+@StructurePattern("Vector Pattern")
+
 public class AObjectDatabase implements ObjectDatabase {
 	public final int MAX_SIZE = 50;
 	Object[] contents = new Object[MAX_SIZE];
@@ -9,29 +12,27 @@ public class AObjectDatabase implements ObjectDatabase {
 		return size;
 	}
 
+	public boolean isFull() {
+		return size() == MAX_SIZE;
+	}
+	
 	public Object elementAt(int index) {
 		return contents[index];
-	}
-
-	boolean isFull() {
-		return size == MAX_SIZE;
 	}
 
 	public void addElement(Object element) {
 		if (isFull())
 			System.out.println("Adding item to a full history");
 		else {
-			contents[size] = element;
-			size++;
+			contents[size++] = element;
 		}
 	}
 
 	public void removeElement(Object element) {
-		contents[indexOf(element)] = contents[size - 1];
-		size--;
+		contents[indexOf(element)] = contents[--size];
 	}
 
-	void removeElement(int startIndex) {
+	public void removeElement(int startIndex) {
 		shiftUp(startIndex);
 		size--;
 	}
@@ -40,23 +41,27 @@ public class AObjectDatabase implements ObjectDatabase {
 		contents[index] = element;
 	}
 
-	void shiftUp(int startIndex) {
-		for (int index = startIndex; index + 1 < size; index++)
+	private void shiftUp(int startIndex) {
+		for (int index = startIndex; index + 1 < size(); index++)
 			contents[index] = contents[index + 1];
 	}
 
 	public int indexOf(Object element) {
 		int index;
-		for (index = 0; index < size && !element.equals(contents[index]); index++)
+		for (index = 0; index < size() && !element.equals(contents[index]); index++)
 			;
+		if (!element.equals(contents[index])) {
+			return -1;
+		}
 		return index;
 	}
 
 	public boolean member(Object element) {
-		return indexOf(element) < size;
+		return indexOf(element) < size();
 	}
 
 	public void clear() {
+		contents = new String[MAX_SIZE];
 		size = 0;
 	}
 }
