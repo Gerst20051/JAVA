@@ -3,15 +3,18 @@ package assignment7;
 import java.awt.Color;
 import util.misc.ThreadSupport;
 import bus.uigen.OEFrame;
+import bus.uigen.ObjectEditor;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class AScene {
+public class AScene implements Scene {
 	OEFrame OE;
 	Canvas canvas = new Canvas();
 	AScanner scanner = new AScanner("");
 	AParser parser = new AParser(canvas, scanner);
 	ATable table = new ATable();
+	OEFrame OEscanner = ObjectEditor.edit(scanner);
+	OEFrame OEparser = ObjectEditor.edit(parser);
 
 	public AScene() {
 		
@@ -48,9 +51,12 @@ public class AScene {
 		for (int i = 0; i < animate.length; i++) {
 			parser.setString(animate[i]);
 			ThreadSupport.sleep(1000);
+			OEscanner.refresh();
+			OEparser.refresh();
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void reverseScene() {
 		for (int i = 0; i < parser.getHistory().size(); i++) {
 			// Starting to work on undo functions

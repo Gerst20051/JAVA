@@ -9,7 +9,7 @@ import util.annotations.StructurePattern;
 import util.annotations.StructurePatternNames;
 @StructurePattern(StructurePatternNames.BEAN_PATTERN)
 
-public class AScanner {
+public class AScanner implements Scanner {
 	OEFrame OE;
 	String string;
 	String token;
@@ -56,7 +56,7 @@ public class AScanner {
 		return tokens;
 	}
 	
-	void resetVars() {
+	private void resetVars() {
 		tokens = new Token[1];
 		errors = new String[50];
 		isspace = false;
@@ -76,60 +76,61 @@ public class AScanner {
 		strlen = 0;
 	}
 	
-	int getIndex(String[] haystack, String needle) {
+	@SuppressWarnings("unused")
+	private int getIndex(String[] haystack, String needle) {
 		for (int i = 0; i < haystack.length; i++) {
 			if (haystack[i].equals(needle)) return i;
 		}
 		return -1;
 	}
 	
-	boolean isDigit(char token) {
+	private boolean isDigit(char token) {
 		int digit = Character.getNumericValue(token);
 		if (0 <= digit && 9 >= digit) return true;
 		else return false;
 	}
 	
-	void setStrlen(int length) {
+	private void setStrlen(int length) {
 		strlen = length;
 	}
 	
-	int getStrlen() {
+	private int getStrlen() {
 		return strlen;
 	}
 	
-	void setPrevIndex(int index) {
+	private void setPrevIndex(int index) {
 		pindex = index;
 	}
 	
-	int getPrevIndex() {
+	private int getPrevIndex() {
 		return pindex;
 	}
 	
-	int getIndex() {
+	private int getIndex() {
 		return index;
 	}
 	
-	void setToken(String input) {
+	private void setToken(String input) {
 		token = input;
 	}
 	
-	String getToken() {
+	private String getToken() {
 		return token;
 	}
 	
-	char getCToken() {
+	private char getCToken() {
 		return getString().charAt(getIndex());
 	}
 	
-	char getCToken(int index) {
+	private char getCToken(int index) {
 		return getString().charAt(index);
 	}
 	
-	void checkPrevToken() {
+	private void checkPrevToken() {
 		if (hasPrev()) checkToken(getIndex()-1);
 	}
 	
-	void checkToken(int index) {
+	private void checkToken(int index) {
 		isspace = false;
 		issign = false;
 		isanchor = false;
@@ -155,32 +156,33 @@ public class AScanner {
 		}
 	}
 	
-	void checkType() {
+	private void checkType() {
 		char token = getCToken();
 		if (token == '"') {
 			inquote = !inquote;
 		}
 	}
 	
-	boolean hasPrev() {
+	private boolean hasPrev() {
 		if (0 < getIndex()) return true;
 		else return false;
 	}
 	
-	char getPrev() {
+	@SuppressWarnings("unused")
+	private char getPrev() {
 		return getCToken(getIndex()-1);
 	}
 	
-	boolean hasNext() {
+	private boolean hasNext() {
 		if (getIndex() < getStrlen()) return true;
 		else return false;
 	}
 	
-	void nextToken() {
+	private void nextToken() {
 		++index;
 	}
 	
-	void appendTokenArray(Token instance) {
+	private void appendTokenArray(Token instance) {
 		int tokensLength = tokens.length;
 		Token[] newTokens = new Token[tokensLength+1];
 		for (int i = 0; i < tokensLength; i++) {
@@ -191,7 +193,7 @@ public class AScanner {
 		tindex++;
 	}
 	
-	void storeToken() {
+	private void storeToken() {
 		if (issign) {
 			if (getCToken() == '-') {
 				appendTokenArray(new Minus(getToken()));
@@ -259,7 +261,7 @@ public class AScanner {
 		}
 	}
 	
-	void processString() {
+	private void processString() {
 		while (hasNext()) {
 			checkType();
 			checkToken(getIndex());

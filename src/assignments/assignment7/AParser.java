@@ -8,7 +8,7 @@ import a7_commands.Thread;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class AParser {
+public class AParser implements Parser {
 	OEFrame OE;
 	Canvas canvas;
 	AScanner scanner;
@@ -36,7 +36,7 @@ public class AParser {
 		avatars.put("wizard", canvas.getWizardAvatar());
 	}
 	
-	public void interpretCommand() {
+	private void interpretCommand() {
 		if (!(getTokens()[0] instanceof Command)) {
 			System.out.println("ERROR! 1st argument in string you provided is of type "+getTokens()[0].getClass().getName().substring(9)+" and should be a command such as MOVE or SAY.");
 			return;
