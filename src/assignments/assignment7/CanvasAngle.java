@@ -38,7 +38,6 @@ public class CanvasAngle implements GraphicObjectAngle {
 		return scale;
 	}
 	
-	@SuppressWarnings("unused")
 	private boolean isOrigin() {
 		return isOrigin;
 	}

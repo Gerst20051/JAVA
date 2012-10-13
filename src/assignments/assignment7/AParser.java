@@ -4,7 +4,6 @@ import bus.uigen.OEFrame;
 import a7_token.*;
 import a7_token.Number;
 import a7_commands.*;
-import a7_commands.Thread;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
