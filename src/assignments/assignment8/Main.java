@@ -9,7 +9,6 @@ public class Main {
 		OEFrame SceneOE = ObjectEditor.edit(scene);
 		SceneOE.hideMainPanel();
 		SceneOE.setSize(650, 695);
-		scene.reference(SceneOE);
 		scene.init();
 	}
 }

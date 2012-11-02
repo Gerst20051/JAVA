@@ -2,14 +2,12 @@ package assignment8;
 
 import java.awt.Color;
 import java.awt.BasicStroke;
-import bus.uigen.OEFrame;
 import util.annotations.Position;
 import util.annotations.StructurePattern;
 import util.misc.ThreadSupport;
 @StructurePattern("Bean Pattern")
 
 public class Canvas implements GraphicCanvas {
-	OEFrame OE;
 	CanvasImage background = new CanvasImage("Background.jpg");
 	Avatar dorothy = new Avatar("Dorothy.jpg");
 	Avatar scarecrow = new Avatar("Scarecrow.jpg");
@@ -40,12 +38,6 @@ public class Canvas implements GraphicCanvas {
 		return wizard;
 	}
 	
-	private void setReferences() {
-		dorothy.reference(OE);
-		scarecrow.reference(OE);
-		wizard.reference(OE);
-	}
-	
 	private void setLocations() {
 		dorothy.setLocation(250,250);
 		scarecrow.setLocation(400,400);
@@ -69,18 +61,14 @@ public class Canvas implements GraphicCanvas {
 	
 	private void doIntroductions() {
 		wizard.say("Hi, I'm Oz!");
-		//OE.refresh();
 		ThreadSupport.sleep(1000);
 		wizard.say("");
 		dorothy.say("Hi, I'm Dorothy!");
-		//OE.refresh();
 		ThreadSupport.sleep(1000);
 		dorothy.say("");
 		scarecrow.say("Hi, I'm Scarecrow!");
-		//OE.refresh();
 		ThreadSupport.sleep(1000);
 		scarecrow.say("");
-		//OE.refresh();
 	}
 	
 	private void scrollScene(int x, int y) {
@@ -91,7 +79,6 @@ public class Canvas implements GraphicCanvas {
 			dorothy.moveLocation(x, y);
 			scarecrow.moveLocation(x, y);
 			wizard.moveLocation(x, y);
-			//OE.refresh();
 			ThreadSupport.sleep((long) delay);
 		}
 	}
@@ -105,14 +92,12 @@ public class Canvas implements GraphicCanvas {
 			dorothy.moveLocation(x, y);
 			scarecrow.moveLocation(x, y);
 			wizard.moveLocation(x, y);
-			//OE.refresh();
 			ThreadSupport.sleep((long) delay);
 		}
 	}
 	
 	private void animateScene() {
 		dorothy.say("Hang on for the ride!");
-		//OE.refresh();
 		scrollScene(100,100,2);
 		scrollScene(0,-200,.3);
 		scrollScene(-300,0);
@@ -120,27 +105,20 @@ public class Canvas implements GraphicCanvas {
 		scrollScene(245,150);
 		scrollScene(0,-305,3);
 		dorothy.say("WOW. That was fun!");
-		//OE.refresh();
 		ThreadSupport.sleep(2000);
 		dorothy.say("");
-		//OE.refresh();
 	}
 	
 	private void doDance(Avatar resource) {
 		resource.moveLocation(-20,-20);
-		//OE.refresh();
 		ThreadSupport.sleep(300);
 		resource.moveLocation(40,0);
-		//OE.refresh();
 		ThreadSupport.sleep(300);
 		resource.moveLocation(0,40);
-		//OE.refresh();
 		ThreadSupport.sleep(300);
 		resource.moveLocation(-40,0);
-		//OE.refresh();
 		ThreadSupport.sleep(300);
 		resource.moveLocation(20,-20);
-		//OE.refresh();
 	}
 	
 	private void animateLimbs(Avatar resource) {
@@ -164,18 +142,11 @@ public class Canvas implements GraphicCanvas {
 		wizard.animateArms(2);
 		animateLimbs(dorothy, 1);
 		dorothy.getAvatarImage().lookForward();
-		//OE.refresh();
 	}
 	
 	public void init() {
-		setReferences();
 		setLocations();
 		styleLines();
-		animate();
-		//OE.refresh();
-	}
-	
-	public void reference(OEFrame object) {
-		OE = object;
+		//animate();
 	}
 }

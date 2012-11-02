@@ -1,6 +1,6 @@
 package a8_commands;
 
-import a7_token.Token;
+import a8_token.Token;
 
 public interface Command extends Token {
 

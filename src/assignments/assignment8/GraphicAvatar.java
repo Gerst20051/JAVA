@@ -2,7 +2,6 @@ package assignment8;
 
 import java.awt.Color;
 import java.awt.Stroke;
-import bus.uigen.OEFrame;
 
 public interface GraphicAvatar {
 	public void setLocation(int x, int y);
@@ -29,5 +28,4 @@ public interface GraphicAvatar {
 	public void rotateRightLeg(int input);
 	public void animateLimbs();
 	public void animateLimbs(int reps);
-	public void reference(OEFrame object);
 }

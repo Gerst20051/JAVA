@@ -1,12 +1,23 @@
 package assignment8;
 
 import bus.uigen.ObjectEditor;
+import util.annotations.ObserverRegisterer;
+import util.annotations.ObserverTypes;
 import util.annotations.StructurePattern;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 @StructurePattern("String Pattern")
 
 public class AStringShape implements StringShape {
 	String text;
 	int x, y;
+	PropertyListenerSupport listeners = new APropertyListenerSupport();
+	
+	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		listeners.add(listener);
+	}
 	
 	public AStringShape(String initText, int initX, int initY) {
 		text = initText;
@@ -20,6 +31,7 @@ public class AStringShape implements StringShape {
 	
 	public void setX(int newX) {
 		x = newX;
+		listeners.notifyAllListeners(new PropertyChangeEvent(this, "x", getX(), getX()));
 	}
 	
 	public int getY() {
@@ -28,6 +40,7 @@ public class AStringShape implements StringShape {
 	
 	public void setY(int newY) {
 		y = newY;
+		listeners.notifyAllListeners(new PropertyChangeEvent(this, "y", getY(), getY()));
 	}
 	
 	public String getText() {
@@ -36,6 +49,7 @@ public class AStringShape implements StringShape {
 	
 	public void setText(String newVal) {
 		text = newVal;
+		listeners.notifyAllListeners(new PropertyChangeEvent(this, "text", getText(), getText()));
 	}
 	
 	public static void main(String args[]) {

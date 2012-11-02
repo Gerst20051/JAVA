@@ -1,11 +1,9 @@
 package assignment8;
 
-import a7_token.Token;
-import bus.uigen.OEFrame;
+import a8_token.Token;
 
 public interface Parser {	
 	public Token[] getTokens();
 	public AObjectDatabase getHistory();
 	public void setString(String input);
-	public void reference(OEFrame object);
 }

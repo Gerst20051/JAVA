@@ -2,30 +2,17 @@ package assignment8;
 
 import java.awt.Color;
 import java.awt.Stroke;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import bus.uigen.OEFrame;
-import util.annotations.ObserverRegisterer;
-import util.annotations.ObserverTypes;
 import util.annotations.StructurePattern;
 import util.annotations.Visible;
 import util.misc.ThreadSupport;
 @StructurePattern("Bean Pattern")
 
 public class Avatar implements GraphicAvatar {
-	OEFrame OE;
 	CanvasImageAvatar avatar;
 	CanvasText speech = new CanvasText();
 	CanvasLine torso = new CanvasLine();
 	CanvasAngle arms = new CanvasAngle();
 	CanvasAngle legs = new CanvasAngle();
-	PropertyListenerSupport listeners = new APropertyListenerSupport();
-
-	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)
-	public void addPropertyChangeListener(PropertyChangeListener listener) {
-		listeners.add(listener);
-	}
 	
 	public Avatar(String input) {
 		avatar = new CanvasImageAvatar(input);
@@ -108,21 +95,17 @@ public class Avatar implements GraphicAvatar {
 	
 	public void say(String text, int secs) {
 		speech.setText(text);
-		//OE.refresh();
 		ThreadSupport.sleep(secs*1000);
 		speech.setText("");
-		//OE.refresh();
 	}
 	
 	public void say(int reps, String[] text) {
 		while (0 < reps--) {
 			speech.setText(text[(int) Math.floor(Math.random()*text.length)]);
 			ThreadSupport.sleep(300);
-			//OE.refresh();
 		}
 		ThreadSupport.sleep(300);
 		speech.setText("");
-		//OE.refresh();
 	}
 	
 	public void turnHead(int reps) {
@@ -137,7 +120,6 @@ public class Avatar implements GraphicAvatar {
 				avatar.lookForward();
 			}
 			ThreadSupport.sleep(300);
-			//OE.refresh();
 		}
 	}
 	
@@ -152,11 +134,9 @@ public class Avatar implements GraphicAvatar {
 			arms.setAngle(arms.getAngle()+direction*(Math.PI/(reps/2)));
 			arms.setOriginAngle();
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		arms.setAngle(oldangle);
 		arms.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void animateLegs(int input) {
@@ -170,11 +150,9 @@ public class Avatar implements GraphicAvatar {
 			legs.setAngle(legs.getAngle()+direction*(Math.PI/reps));
 			legs.setOriginAngle();
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		legs.setAngle(oldangle);
 		legs.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void rotateLeftArm(int input) {
@@ -186,11 +164,9 @@ public class Avatar implements GraphicAvatar {
 			}
 			arms.setAngle(arms.getAngle()+direction*(Math.PI/(reps/2)));
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		arms.setAngle(oldangle);
 		arms.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void rotateRightArm(int input) {
@@ -204,12 +180,10 @@ public class Avatar implements GraphicAvatar {
 			}
 			arms.setFirstAngle(arms.getFirstAngle()+direction*(Math.PI/(reps/2)));
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		arms.isOrigin(true);
 		arms.setFirstAngle(oldangle);
 		arms.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void rotateLeftLeg(int input) {
@@ -221,11 +195,9 @@ public class Avatar implements GraphicAvatar {
 			}
 			legs.setAngle(legs.getAngle()+direction*(Math.PI/(reps/2)));
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		legs.setAngle(oldangle);
 		legs.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void rotateRightLeg(int input) {
@@ -239,12 +211,10 @@ public class Avatar implements GraphicAvatar {
 			}
 			legs.setFirstAngle(legs.getFirstAngle()+direction*(Math.PI/(reps/2)));
 			ThreadSupport.sleep(25);
-			//OE.refresh();
 		}
 		legs.isOrigin(true);
 		legs.setFirstAngle(oldangle);
 		legs.setOriginAngle();
-		//OE.refresh();
 	}
 	
 	public void animateLimbs() {
@@ -259,9 +229,5 @@ public class Avatar implements GraphicAvatar {
 		rotateRightArm(reps);
 		rotateLeftLeg(reps);
 		rotateRightLeg(reps);
-	}
-	
-	public void reference(OEFrame object) {
-		OE = object;
 	}
 }

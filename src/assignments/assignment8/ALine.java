@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Stroke;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-
 import util.annotations.ObserverRegisterer;
 import util.annotations.ObserverTypes;
 import util.annotations.StructurePattern;

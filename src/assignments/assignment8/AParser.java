@@ -1,9 +1,9 @@
 package assignment8;
 
 import bus.uigen.OEFrame;
-import a7_token.*;
-import a7_token.Number;
-import a7_commands.*;
+import a8_token.*;
+import a8_token.Number;
+import a8_commands.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import util.annotations.ObserverRegisterer;
@@ -82,7 +82,6 @@ public class AParser implements Parser {
 						return;
 					}
 				}
-				//OE.refresh();
 				listeners.notifyAllListeners(new PropertyChangeEvent(this, "tokens", getTokens(), getTokens()));
 			} else {
 				System.out.println("ERROR! 2nd argument in command MOVE should be a Word. You provided type "+getTokens()[1].getClass().getName().substring(9)+".");
@@ -111,10 +110,6 @@ public class AParser implements Parser {
 		interpretCommand();
 		listeners.notifyAllListeners(new PropertyChangeEvent(this, "history", getHistory(), getHistory()));
 		listeners.notifyAllListeners(new PropertyChangeEvent(this, "tokens", getTokens(), getTokens()));
-	}
-	
-	public void reference(OEFrame object) {
-		OE = object;
 	}
 	
 	@ObserverRegisterer(ObserverTypes.PROPERTY_LISTENER)

@@ -1,10 +1,10 @@
 package assignment8;
 
 import bus.uigen.OEFrame;
-import a7_token.*;
-import a7_token.Number;
-import a7_commands.*;
-import a7_commands.Thread;
+import a8_token.*;
+import a8_token.Number;
+import a8_commands.*;
+import a8_commands.Thread;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import util.annotations.ObserverRegisterer;
@@ -310,9 +310,5 @@ public class AScanner implements Scanner {
 			}
 			nextToken();
 		}
-	}
-	
-	public void reference(OEFrame editor) {
-		OE = editor;
 	}
 }
