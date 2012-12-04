@@ -22,7 +22,7 @@ public class ABMISpreadsheetController implements ActionListener {
         String text = source.getText();
         double val = Double.parseDouble(text);
         if (source == height) {
-            bmiSpreadsheet.setHeight(val);      
+            bmiSpreadsheet.setHeight(val);
         } else {
             bmiSpreadsheet.setWeight(val);
         }       

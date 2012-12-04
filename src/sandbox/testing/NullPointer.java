@@ -19,5 +19,9 @@ public class NullPointer {
 		//a = b;
 		//x = y;
 		n = m;
+		/*
+		int i,j;
+		i=j; // the local variable j may not have been initialized
+		*/
 	}
 }

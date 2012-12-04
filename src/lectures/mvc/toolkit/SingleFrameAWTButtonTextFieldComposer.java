@@ -21,10 +21,10 @@ public class SingleFrameAWTButtonTextFieldComposer {
         frame.setSize(200, 200);
         frame.setVisible(true);
         //compose model view and controller
-        ObservableCounter model = new AnObservableCounter(); 
+        ObservableCounter model = new AnObservableCounter();
         CounterObserver view = new ACounterJTextFieldView(textField);
         model.addObserver(view);
         CounterController controller = new ACounterJButtonController(button);
-        controller.setModel(model); 
+        controller.setModel(model);
     }
 }

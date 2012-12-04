@@ -3,7 +3,8 @@ package mvc.main;
 public class AnObservableCounter extends ACounter implements ObservableCounter {
     int counter = 0;
     ObserverHistory observers = new AnObserverHistory();
-    public void add (int amount) {
+    
+    public void add(int amount) {
         super.add(amount);
         notifyAllObservers();
     }

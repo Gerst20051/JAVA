@@ -10,14 +10,12 @@ public class AnObservableShuttleImage extends AShuttleImage implements Observabl
      public void setX(int newVal) {
         int oldVal = getX();
         super.setX(newVal);
-        propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal,
-                newVal));
+        propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "X", oldVal, newVal));
     }
     public void setY(int newVal) {
         int oldVal = getY();
         super.setY(newVal);
-        propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldVal,
-                newVal));
+        propertySupport.notifyAllListeners(new PropertyChangeEvent(this, "Y", oldVal, newVal));
     }   
     
      public void addPropertyChangeListener(PropertyChangeListener l) {

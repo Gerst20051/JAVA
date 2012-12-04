@@ -1,6 +1,8 @@
-package recitation3;
+package recitation2;
 
 import bus.uigen.ObjectEditor;
+import util.annotations.StructurePattern;
+@StructurePattern("Rectangle Pattern")
 
 public class CartesianRectangle implements Rectangle {
 	int x, y, width, height;

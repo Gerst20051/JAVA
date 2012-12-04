@@ -1,4 +1,4 @@
-package recitation3;
+package recitation2;
 
 public class MathClass {
 	int n;

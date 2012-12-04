@@ -1,4 +1,4 @@
-package recitation2;
+package recitation1;
 
 import java.util.Scanner;
 

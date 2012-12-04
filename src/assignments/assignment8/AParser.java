@@ -104,6 +104,7 @@ public class AParser implements Parser {
 	}
 	
 	public void setString(String input) {
+		System.out.println("APARSER: "+input);
 		scanner.setString(input);
 		tokens = scanner.getTokens();
 		history.addElement(tokens);

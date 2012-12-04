@@ -1,4 +1,7 @@
-package recitation3;
+package recitation2;
+
+import util.annotations.StructurePattern;
+@StructurePattern("Bean Pattern")
 
 public class MathClass {
 	int n;

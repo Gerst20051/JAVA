@@ -1,4 +1,4 @@
-package recitation2;
+package recitation1;
 
 public class MathClass implements Sum, Factorial, NumberHolder {
 	int n;

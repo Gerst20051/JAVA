@@ -13,7 +13,7 @@ public class ACounterJButtonController implements CounterController, ActionListe
         button = theButton;
         button.addActionListener(this);
     }
-    public void setModel (ObservableCounter theCounter) {
+    public void setModel(ObservableCounter theCounter) {
         counter = theCounter;
     }   
     public void processInput() {

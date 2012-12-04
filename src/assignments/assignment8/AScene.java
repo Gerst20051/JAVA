@@ -1,19 +1,17 @@
 package assignment8;
 
 import util.misc.ThreadSupport;
-import bus.uigen.OEFrame;
-import bus.uigen.ObjectEditor;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
 public class AScene implements Scene {
-	OEFrame OE;
 	Canvas canvas = new Canvas();
 	AScanner scanner = new AScanner("");
 	AParser parser = new AParser(canvas, scanner);
 	ATable table = new ATable();
-	OEFrame OEscanner = ObjectEditor.edit(scanner);
-	OEFrame OEparser = ObjectEditor.edit(parser);
+	CommandUI commandui = new CommandUI(parser);
+	//OEFrame OEscanner = ObjectEditor.edit(scanner);
+	//OEFrame OEparser = ObjectEditor.edit(parser);
 	
 	public AScene() {
 		
@@ -62,6 +60,6 @@ public class AScene implements Scene {
 	
 	public void init() {
 		canvas.init();
-		//animateScene();
+		animateScene();
 	}
 }

@@ -3,7 +3,7 @@ package a7_token;
 import util.annotations.StructurePattern;
 @StructurePattern("Bean Pattern")
 
-public class AToken {
+public class AToken implements Token {
 	String token;
 	
 	public void setToken(String input) {

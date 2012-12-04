@@ -10,11 +10,10 @@ public class ABMISpreadsheetView implements BeanView {
     JTextField heightField, weightField;
     JSlider bmiSlider;
     JProgressBar bmiProgressBar;
-    public ABMISpreadsheetView (JTextField theHeightField, JTextField theWeightField, 
-                                JSlider theBMISlider, JProgressBar theBMIProgressBar) {
+    public ABMISpreadsheetView (JTextField theHeightField, JTextField theWeightField, JSlider theBMISlider, JProgressBar theBMIProgressBar) {
         heightField = theHeightField;
         weightField = theWeightField;
-        bmiSlider = theBMISlider;   
+        bmiSlider = theBMISlider;
         bmiProgressBar = theBMIProgressBar;
     }
     @Override
@@ -22,15 +21,15 @@ public class ABMISpreadsheetView implements BeanView {
         String propertyName = event.getPropertyName();
         Double newValue = (Double) event.getNewValue();
         if (propertyName.equalsIgnoreCase("height")) {
-            heightField.setText(newValue.toString()); 
-        } else if (propertyName.equalsIgnoreCase("weight")) {       
+            heightField.setText(newValue.toString());
+        } else if (propertyName.equalsIgnoreCase("weight")) {
             weightField.setText(event.getNewValue().toString());
         } else if (propertyName.equalsIgnoreCase("bmi")) {
             double newBMI = newValue;
             bmiSlider.setValue((int) newBMI);
             bmiProgressBar.setValue((int) newBMI);
-        }       
-    }   
+        }
+    }
     public void register(PropertyListenerRegisterer aPropertyChangeRegister) {
         aPropertyChangeRegister.addPropertyChangeListener(this);
     }

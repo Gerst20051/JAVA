@@ -30,7 +30,7 @@ public class AShapeImage implements ImageShape {
 	public int getWidth() { return imageWidth; }
 
 	public static void main (String args[]) {
-		ImageShape shuttle = new AShapeImage("src/assignment5/Dorothy.jpg", 0, 0);
+		ImageShape shuttle = new AShapeImage("src/images/Dorothy.jpg", 0, 0);
 		ObjectEditor.edit(shuttle);
 		shuttle.setX(100);
 		shuttle.setY(100);
