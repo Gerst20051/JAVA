@@ -60,6 +60,6 @@ public class Node {
 	}
 
 	public String toString(){
-		return "(" + getAsString(left) + " " + data + " " + getAsString(right) + ")";
+		return "(" + getAsString(left) + " key: " + key + " data: " + data + " " +getAsString(right) + ")";
 	}
 }

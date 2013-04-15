@@ -7,9 +7,6 @@ public interface Dictionary {
 	// search for an entry with key k and return whether integer key exists
 	public boolean find(int k);
 	
-	// search for an entry with key k and return the object
-	public Node findKey(int k);
-	
 	// delete an entry with key k
 	public void remove(int k);
 	

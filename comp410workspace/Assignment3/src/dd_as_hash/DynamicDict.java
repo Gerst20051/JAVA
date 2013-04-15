@@ -1,9 +1,8 @@
 package dd_as_hash;
 
 import main.Dictionary;
-import main.Node;
-import main.Tree;
+import main.HashTable;
 
-public class DynamicDict extends Tree implements Dictionary {
+public class DynamicDict extends HashTable implements Dictionary {
 	public DynamicDict(){}
 }

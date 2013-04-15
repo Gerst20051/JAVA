@@ -181,6 +181,18 @@ public class Tree {
 		return n;
 	}
 	
+	public void inorder(){
+		inorder(root);
+	}
+	
+	public void inorder(Node n){
+		if (n != null) {
+			inorder(n.getLeft());
+			System.out.println("key: " + n.getKey() + " data: " + n.getData());
+			inorder(n.getRight());
+		}
+	}
+	
 	public String toString(){
 		return root.toString();
 	}
