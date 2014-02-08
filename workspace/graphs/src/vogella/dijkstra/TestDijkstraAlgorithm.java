@@ -46,7 +46,6 @@ public class TestDijkstraAlgorithm {
 		for (Vertex vertex : path) {
 			System.out.println(vertex);
 		}
-
 	}
 
 	private static void addLane(String laneId, int sourceLocNo, int destLocNo, int duration) {

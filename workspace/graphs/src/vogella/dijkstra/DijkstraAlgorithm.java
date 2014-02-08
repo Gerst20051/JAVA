@@ -48,7 +48,6 @@ public class DijkstraAlgorithm {
 				unSettledNodes.add(target);
 			}
 		}
-
 	}
 
 	private int getDistance(Vertex node, Vertex target) {
@@ -116,6 +115,15 @@ public class DijkstraAlgorithm {
 		// Put it into the correct order
 		Collections.reverse(path);
 		return path;
+	}
+	
+	public int getDistance(Vertex target) {
+		int dist = 0;
+		LinkedList<Vertex> vertexes = getPath(target);
+		for (Vertex vertex : vertexes) {
+			
+		}
+		return dist;
 	}
 
 }
